@@ -1,0 +1,22 @@
+.login-bg {
+    position: relative;
+}
+
+    .login-bg:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.6;
+        background-image: url('/images/Hooshmand-Logo.jpg');
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        background-size: cover;
+    }
+
+.login-content {
+    position: relative;
+}

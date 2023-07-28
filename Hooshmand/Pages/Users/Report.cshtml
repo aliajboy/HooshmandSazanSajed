@@ -1,0 +1,81 @@
+﻿@page
+@model Hooshmand.Pages.Users.ReportModel
+@using Hooshmand.Models;
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "گزارش ورود و خروج";
+    var users = UserManager.Users.ToList();
+}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">گزارش ورود و خروج</h5>
+
+        <a asp-page="Create" class="btn btn-primary mb-3">ثبت ورود و خروج</a>
+
+        <form method="post">
+            <div class="row mb-2">
+                <label class="col-sm-1 col-xxl-1 col-form-label"> کاربر :</label>
+                <div class="col-sm-2">
+                    <select asp-for="Input.user.Id" class="form-select text-center" aria-label="Default select example">
+                        @foreach (var item in users)
+                        {
+                            <option value="@item.Id">@item.FullName</option>
+                        }
+                    </select>
+                </div>
+                <label for="inputDate" class="col-sm-1 col-xxl-1 col-form-label">از تاریخ :</label>
+                <div class="col-sm-3 col-xl-2">
+                    <input asp-for="Input.FromDate" type="Date" class="form-control text-center">
+                </div>
+                <label for="inputDate" class="col-sm-1 col-xxl-1 col-form-label">تا تاریخ :</label>
+                <div class="col-sm-3 col-xl-2">
+                    <input asp-for="Input.ToDate" type="Date" class="form-control text-center">
+                </div>
+                <div class="col-sm-3 col-xl-2">
+                    <button asp-page-handler="GetReport" type="submit" class="btn btn-info">دریافت گزارش</button>
+                </div>
+            </div>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        کاربر
+                    </th>
+                    <th>
+                        تاریخ و ساعت ورود
+                    </th>
+                    <th>
+                        تاریخ و ساعت خروج
+                    </th>
+                    <th>
+                        مرخصی؟
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var item in Model.UserTimes)
+                {
+                    <tr>
+                        <td>
+                            @item.User.FullName
+                        </td>
+                        <td>
+                            @item.EnterTime
+                        </td>
+                        <td>
+                            @item.ExitTime
+                        </td>
+                        <td>
+                            @item.Vacation
+                        </td>
+                        <td>
+                            <a asp-page="./Edit">ویرایش</a> | 
+                            <a asp-page="./Delete" class="link-danger">حذف</a>
+                        </td>
+                    </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
+</div>

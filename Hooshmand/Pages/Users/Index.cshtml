@@ -1,0 +1,37 @@
+﻿@page
+@model Hooshmand.Pages.Users.IndexModel
+@using Hooshmand.Models;
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var users = UserManager.Users.ToList();
+}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">لیست کاربران</h5>
+
+        <a asp-area="Identity" asp-page="/account/register" class="btn btn-primary mb-1">افزودن کاربر جدید</a>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">نام</th>
+                    <th scope="col">شغل</th>
+                    <th scope="col">شماره تماس</th>
+                    <th scope="col">ایمیل</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in users)
+                {
+                    <tr>
+                        <td>@item.FullName</td>
+                        <td>@item.Job</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>@item.Email</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

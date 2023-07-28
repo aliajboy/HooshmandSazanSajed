@@ -1,5 +1,59 @@
-﻿@page
+﻿@page "/register"
 @model RegisterModel
 @{
-    ViewData["Title"] = "ثبت نام";
+    ViewData["Title"] = "ساخت کاربر جدید";
+}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">ساخت کاربر جدید</h5>
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <div class="col-12">
+                        <label asp-for="Input.FullName">نام و نام خانوادگی</label>
+                        <input asp-for="Input.FullName" class="form-control" autocomplete="username" aria-required="true"/>
+                        <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="Input.Job">شغل</label>
+                        <input asp-for="Input.Job" class="form-control" autocomplete="username" aria-required="true" />
+                        <span asp-validation-for="Input.Job" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="Input.Adress">آدرس</label>
+                        <input asp-for="Input.Adress" class="form-control" autocomplete="username" aria-required="true" />
+                        <span asp-validation-for="Input.Adress" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="Input.PhoneNumber">شماره تماس</label>
+                        <input asp-for="Input.PhoneNumber" class="form-control" autocomplete="username" aria-required="true" />
+                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="Input.Email">ایمیل</label>
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true"/>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="Input.Password">رمز عبور</label>
+                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true"/>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="Input.ConfirmPassword">تکرار رمز عبور</label>
+                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true"/>
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <div class="text-center mt-2">
+                        <button type="submit" class="btn btn-primary">ساخت کاربر</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

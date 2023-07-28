@@ -1,9 +1,11 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+﻿@using Hooshmand.Models;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
+    var currentUser = await UserManager.GetUserAsync(User);
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -17,31 +19,29 @@
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
 
-                <li class="nav-item d-block d-lg-none">
-                    <a class="nav-link nav-icon search-bar-toggle " href="#">
-                        <i class="bi bi-search"></i>
-                    </a>
-                </li><!-- End Search Icon-->
-
                 <li class="nav-item pe-4">
-                    <button class="btn btn-danger">ثبت خروج</button>
+                    <form method="post">
+                        <button asp-page="index" asp-page-handler="ExitSubmit" class="btn btn-danger">ثبت خروج</button>
+                    </form>
                 </li>
 
                 <li class="nav-item pe-4">
-                    <button class="btn btn-primary">ثبت ورود</button>
+                    <form method="post">
+                        <button asp-page-handler="EnterSubmit" class="btn btn-primary">ثبت ورود</button>
+                    </form>
                 </li>
 
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">A. Jebali</span>
-                    </a><!-- End Profile Iamge Icon -->
+                        <span class="d-none d-md-block dropdown-toggle ps-2">@currentUser.UserName</span>
+                    </a>
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>Ali Jebali</h6>
-                            <span>طراح سایت</span>
+                            <h6>@currentUser.FullName</h6>
+                            <span>@currentUser.Job</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -89,22 +89,22 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>محصولات</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-menu-button-wide"></i><span>کاربران</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a asp asp-page="/admin/products/index">
-                            <i class="bi bi-circle"></i><span>محصولات</span>
+                        <a asp asp-page="/users/index">
+                            <i class="bi bi-circle"></i><span>لیست کاربر ها</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-page="/admin/products/create">
-                            <i class="bi bi-circle"></i><span>افزودن محصول</span>
+                        <a asp-page="/users/report">
+                            <i class="bi bi-circle"></i><span>گزارش ورود و خروج</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-page="/admin/productsattributes/index">
-                            <i class="bi bi-circle"></i><span>ویژگی ها</span>
+                        <a asp-page="/index">
+                            <i class="bi bi-circle"></i><span>سطوح دسترسی</span>
                         </a>
                     </li>
                 </ul>

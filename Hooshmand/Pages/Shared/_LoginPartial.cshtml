@@ -131,13 +131,30 @@
                 </a>
                 <ul id="phones-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a asp asp-page="/PhoneBook/Index">
+                        <a asp-page="/PhoneBook/Index">
                             <i class="bi bi-circle"></i><span>لیست مخاطبین</span>
                         </a>
                     </li>
                     <li>
                         <a asp-page="/PhoneBook/Create">
                             <i class="bi bi-circle"></i><span>افزودن شماره تماس جدید</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#customers-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-envelope"></i><span>مشتریان</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="customers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-page="/PhoneBook/Index">
+                            <i class="bi bi-circle"></i><span>لیست مشتریان</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-page="/PhoneBook/Create">
+                            <i class="bi bi-circle"></i><span>افزودن مشتری جدید</span>
                         </a>
                     </li>
                 </ul>

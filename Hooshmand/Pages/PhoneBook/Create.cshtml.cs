@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Hooshmand.Data;
 using Hooshmand.Models;
 
 namespace Hooshmand.Pages.PhoneBook
@@ -30,10 +24,16 @@ namespace Hooshmand.Pages.PhoneBook
 
         public async Task<IActionResult> OnPostAsync(List<Phones> phones)
         {
-          if (!ModelState.IsValid || _context.PhoneBooks == null || PhoneBooks == null)
+            if (!ModelState.IsValid || _context.PhoneBooks == null || PhoneBooks == null)
             {
                 return Page();
             }
+
+            foreach (var phone in phones)
+            {
+                phone.PhoneBook = PhoneBooks;
+            }
+            PhoneBooks.Phones.AddRange(phones);
 
             _context.PhoneBooks.Add(PhoneBooks);
             await _context.SaveChangesAsync();

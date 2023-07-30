@@ -35,5 +35,5 @@ public class Phones : GlobalProperties
 
     // Relations
     public int PhoneBookId { get; set; }
-    public PhoneBooks PhoneBook { get; set; }
+    public PhoneBooks? PhoneBook { get; set; }
 }

@@ -1,60 +1,135 @@
 ﻿@page
 @model Hooshmand.Pages.PhoneBook.EditModel
-
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "ویرایش مخاطب";
+    var phoneNumbers = Model.PhoneBooks.Phones.Select(x => x.PhoneNumber).Where(x => x != null).ToList();
+    var faxes = Model.PhoneBooks.Phones.Select(x => x.Fax).Where(x => x != null).ToList();
+    var email = Model.PhoneBooks.Phones.Select(x => x.Email).Where(x => x != null);
 }
 
-<h1>Edit</h1>
+<form method="post">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">ویرایش اطلاعات مخاطب</h5>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input asp-for="PhoneBooks.Id" type="hidden" />
+                    <div class="form-group mb-2">
+                        <label asp-for="PhoneBooks.FullName" class="control-label"></label>
+                        <input asp-for="PhoneBooks.FullName" class="form-control" />
+                        <span asp-validation-for="PhoneBooks.FullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="PhoneBooks.Company" class="control-label"></label>
+                        <input asp-for="PhoneBooks.Company" class="form-control" />
+                        <span asp-validation-for="PhoneBooks.Company" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="PhoneBooks.JobPosition" class="control-label"></label>
+                        <input asp-for="PhoneBooks.JobPosition" class="form-control" />
+                        <span asp-validation-for="PhoneBooks.JobPosition" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="PhoneBooks.UnitPosition" class="control-label"></label>
+                        <input asp-for="PhoneBooks.UnitPosition" class="form-control" />
+                        <span asp-validation-for="PhoneBooks.UnitPosition" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="PhoneBooks.InternalNumber" class="control-label"></label>
+                        <input asp-for="PhoneBooks.InternalNumber" class="form-control" />
+                        <span asp-validation-for="PhoneBooks.InternalNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="PhoneBooks.Decription" class="control-label"></label>
+                        <input asp-for="PhoneBooks.Decription" class="form-control" />
+                        <span asp-validation-for="PhoneBooks.Decription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="ویرایش مخاطب" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">ویرایش شماره تماس ها</h5>
+                    @if (Model.PhoneBooks.Phones.Count <= 1)
+                    {
+                        <div class="form-group" id="phonesRow">
+                            <input type="hidden" id="totalPhones" value="1" />
+                            <label class="control-label d-block">شماره تماس</label>
+                            <input type="tel" name="[0].PhoneNumber" class="form-control d-inline-block mb-2" style="width:92%;"
+                                   value="@(Model.PhoneBooks.Phones.FirstOrDefault()?.PhoneNumber)" />
+                            <button id="addPhoneRow" type="button" class="btn btn-info">+</button>
+                        </div>
+                        <div class="form-group mb-2" id="faxRow">
+                            <input type="hidden" id="totalfax" value="1" />
+                            <label class="control-label d-block">فکس</label>
+                            <input type="tel" name="[0].Fax" class="form-control d-inline-block mb-2" style="width:92%;"
+                                   value="@Model.PhoneBooks.Phones.FirstOrDefault()?.Fax" />
+                            <button id="addFaxRow" type="button" class="btn btn-info">+</button>
+                        </div>
+                        <div class="form-group mb-2" id="emailRow">
+                            <input type="hidden" id="totalemails" value="1" />
+                            <label class="control-label d-block">ایمیل</label>
+                            <input type="email" name="[0].Email" class="form-control d-inline-block mb-2" style="width:92%;"
+                                   value="@Model.PhoneBooks.Phones.FirstOrDefault()?.Email" />
+                            <button id="addEmailRow" type="button" class="btn btn-info">+</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group" id="phonesRow">
+                            <input type="hidden" id="totalPhones" value="@phoneNumbers.Count()" />
+                            <label class="control-label d-block">شماره تماس</label>
+                            <input type="tel" name="[0].PhoneNumber" class="form-control d-inline-block mb-2" style="width:92%;" value="@phoneNumbers.ElementAtOrDefault(0)" />
+                            <button id="addPhoneRow" type="button" class="btn btn-info">+</button>
+                            @for (int i = 1; i < phoneNumbers.Count(); i++)
+                            {
+                                <div id="phones">
+                                    <input type="tel" name="[@i].PhoneNumber" class="form-control d-inline-block mb-2" style="width:92%;" value="@phoneNumbers.ElementAtOrDefault(i)">
+                                    <button id="removephoneRow" type="button" class="btn btn-danger ms-1">-</button>
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group mb-2" id="faxRow">
+                            <input type="hidden" id="totalfax" value="@(faxes.Count())" />
+                            <label class="control-label d-block">فکس</label>
+                            <input type="tel" name="[0].Fax" class="form-control d-inline-block mb-2" style="width:92%;" value="@(faxes.ElementAtOrDefault(0))" />
+                            <button id="addFaxRow" type="button" class="btn btn-info">+</button>
+                            @for (int i = 1; i < faxes.Count(); i++)
+                            {
+                                <div id="faxes">
+                                    <input type="tel" name="[@i].Fax" class="form-control d-inline-block mb-2" style="width:92%;" value="@phoneNumbers.ElementAtOrDefault(i)">
+                                    <button id="removefaxRow" type="button" class="btn btn-danger ms-1">-</button>
+                                </div>
+                            }
+                        </div>
 
-<h4>PhoneBooks</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="PhoneBooks.FullName" class="control-label"></label>
-                <input asp-for="PhoneBooks.FullName" class="form-control" />
-                <span asp-validation-for="PhoneBooks.FullName" class="text-danger"></span>
+                        <div class="form-group mb-2" id="emailRow">
+                            <input type="hidden" id="totalemails" value="@(email.Count())" />
+                            <label class="control-label d-block">ایمیل</label>
+                            <input type="email" name="[0].Email" class="form-control d-inline-block mb-2" style="width:92%;" value="@email.ElementAtOrDefault(0)" />
+                            <button id="addEmailRow" type="button" class="btn btn-info">+</button>
+                            @for (int i = 1; i < email.Count(); i++)
+                            {
+                                <div id="emails">
+                                    <input type="tel" name="[@i].Email" class="form-control d-inline-block mb-2" style="width:92%;" value="@email.ElementAtOrDefault(i)">
+                                    <button id="removeemailRow" type="button" class="btn btn-danger ms-1">-</button>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="PhoneBooks.InternalNumber" class="control-label"></label>
-                <input asp-for="PhoneBooks.InternalNumber" class="form-control" />
-                <span asp-validation-for="PhoneBooks.InternalNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneBooks.Company" class="control-label"></label>
-                <input asp-for="PhoneBooks.Company" class="form-control" />
-                <span asp-validation-for="PhoneBooks.Company" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneBooks.JobPosition" class="control-label"></label>
-                <input asp-for="PhoneBooks.JobPosition" class="form-control" />
-                <span asp-validation-for="PhoneBooks.JobPosition" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneBooks.UnitPosition" class="control-label"></label>
-                <input asp-for="PhoneBooks.UnitPosition" class="form-control" />
-                <span asp-validation-for="PhoneBooks.UnitPosition" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneBooks.Decription" class="control-label"></label>
-                <input asp-for="PhoneBooks.Decription" class="form-control" />
-                <span asp-validation-for="PhoneBooks.Decription" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="PhoneBooks.Id" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
+</form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Hooshmand.Data;
 using Hooshmand.Models;
@@ -13,9 +8,9 @@ namespace Hooshmand.Pages.PhoneBook
 {
     public class EditModel : PageModel
     {
-        private readonly Hooshmand.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EditModel(Hooshmand.Data.ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -30,7 +25,7 @@ namespace Hooshmand.Pages.PhoneBook
                 return NotFound();
             }
 
-            var phonebooks =  await _context.PhoneBooks.FirstOrDefaultAsync(m => m.Id == id);
+            var phonebooks = await _context.PhoneBooks.Include(x => x.Phones).FirstOrDefaultAsync(m => m.Id == id);
             if (phonebooks == null)
             {
                 return NotFound();
@@ -39,14 +34,23 @@ namespace Hooshmand.Pages.PhoneBook
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+
+        public async Task<IActionResult> OnPostAsync(IEnumerable<Phones> phones)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+
+            var phoneList = await _context.Phones.Where(x => x.PhoneBookId == PhoneBooks.Id).ToListAsync();
+
+            _context.Phones.RemoveRange(phoneList);
+
+            foreach (var phone in phones)
+            {
+                phone.PhoneBook = PhoneBooks;
+            }
+            PhoneBooks.Phones.AddRange(phones);
 
             _context.Attach(PhoneBooks).State = EntityState.Modified;
 
@@ -71,7 +75,7 @@ namespace Hooshmand.Pages.PhoneBook
 
         private bool PhoneBooksExists(int id)
         {
-          return (_context.PhoneBooks?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.PhoneBooks?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

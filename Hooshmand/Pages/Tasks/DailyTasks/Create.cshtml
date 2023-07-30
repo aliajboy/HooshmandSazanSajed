@@ -1,7 +1,5 @@
 ﻿@page
 @model Hooshmand.Pages.Tasks.DailyTasks.CreateModel
-@using Hooshmand.Models;
-@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "گزارش کار جدید"; 
     var user = await UserManager.GetUserAsync(User);

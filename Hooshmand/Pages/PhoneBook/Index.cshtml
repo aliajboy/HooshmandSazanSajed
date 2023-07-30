@@ -8,7 +8,7 @@
     <div class="card-body">
         <h5 class="card-title">لیست مخاطبین</h5>
 
-        <a asp-page="/Phonebook/Create" class="btn btn-primary mb-3">افزودن شماره تماس جدید</a>
+        <a asp-page="/Phonebook/Create" class="btn btn-primary mb-3">افزودن مخاطب جدید</a>
 
         <form method="post" asp-page-handler="Search">
             <div class="row mb-2">
@@ -64,7 +64,9 @@
                         <td>
                             <a asp-page="./Edit" asp-route-id="@item.Id">ویرایش</a> |
                             <a asp-page="./Details" asp-route-id="@item.Id">جزئیات</a> |
-                            <a asp-page="./Delete" asp-route-id="@item.Id">حذف</a>
+                            <form method="post" class="d-inline">
+                                <button asp-page-handler="Delete" asp-route-id="@item.Id" class="btn btn-link text-decoration-none p-0 text-danger">حذف</button>
+                            </form>
                         </td>
                     </tr>
                 }

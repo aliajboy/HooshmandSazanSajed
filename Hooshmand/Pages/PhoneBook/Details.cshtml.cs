@@ -19,7 +19,7 @@ namespace Hooshmand.Pages.PhoneBook
             _context = context;
         }
 
-      public PhoneBooks PhoneBooks { get; set; } = default!; 
+        public PhoneBooks PhoneBooks { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,12 +28,12 @@ namespace Hooshmand.Pages.PhoneBook
                 return NotFound();
             }
 
-            var phonebooks = await _context.PhoneBooks.FirstOrDefaultAsync(m => m.Id == id);
+            var phonebooks = await _context.PhoneBooks.Include(x => x.Phones).FirstOrDefaultAsync(m => m.Id == id);
             if (phonebooks == null)
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 PhoneBooks = phonebooks;
             }

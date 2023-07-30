@@ -26,10 +26,9 @@ namespace Hooshmand.Pages.PhoneBook
 
         [BindProperty]
         public PhoneBooks PhoneBooks { get; set; } = default!;
-        
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+
+        public async Task<IActionResult> OnPostAsync(List<Phones> phones)
         {
           if (!ModelState.IsValid || _context.PhoneBooks == null || PhoneBooks == null)
             {

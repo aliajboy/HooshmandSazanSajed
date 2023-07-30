@@ -36,5 +36,22 @@ namespace Hooshmand.Pages.PhoneBook
                 x.Company.Contains(Search) || x.Phones.Select(y => y.Email).Contains(Search)).ToListAsync();
             }
         }
+
+        public async Task<IActionResult> OnPostDelete(int? id)
+        {
+            if (id == null || _context.PhoneBooks == null)
+            {
+                return NotFound();
+            }
+            var phonebooks = await _context.PhoneBooks.FindAsync(id);
+
+            if (phonebooks != null)
+            {
+                _context.PhoneBooks.Remove(phonebooks);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage("./Index");
+        }
     }
 }

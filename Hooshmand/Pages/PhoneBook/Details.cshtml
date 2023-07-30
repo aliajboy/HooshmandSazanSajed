@@ -2,54 +2,88 @@
 @model Hooshmand.Pages.PhoneBook.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "جزئیات مخاطب";
 }
-
-<h1>Details</h1>
-
-<div>
-    <h4>PhoneBooks</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneBooks.FullName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhoneBooks.FullName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneBooks.InternalNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhoneBooks.InternalNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneBooks.Company)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhoneBooks.Company)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneBooks.JobPosition)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhoneBooks.JobPosition)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneBooks.UnitPosition)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhoneBooks.UnitPosition)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneBooks.Decription)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhoneBooks.Decription)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.PhoneBooks?.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">جزئیات مخاطب</h5>
+                <dl class="row">
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.PhoneBooks.FullName)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.PhoneBooks.FullName)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.PhoneBooks.InternalNumber)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.PhoneBooks.InternalNumber)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.PhoneBooks.Company)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.PhoneBooks.Company)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.PhoneBooks.JobPosition)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.PhoneBooks.JobPosition)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.PhoneBooks.UnitPosition)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.PhoneBooks.UnitPosition)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.PhoneBooks.Decription)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.PhoneBooks.Decription)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">جزئیات تماس</h5>
+                <div class="row">
+                    <div class="col-sm-3">
+                        شماه تماس
+                    </div>
+                    <div class="col-sm-9 mb-2">
+                        @foreach (var item in Model.PhoneBooks.Phones.Select(x => x.PhoneNumber))
+                        {
+                            <span class="d-block">@item</span>
+                        }
+                    </div>
+                    <div class="col-sm-3">
+                        فکس
+                    </div>
+                    <div class="col-sm-9 mb-2">
+                        @foreach (var item in Model.PhoneBooks.Phones.Select(x => x.Fax))
+                        {
+                            <span class="d-block">@item</span>
+                        }
+                    </div>
+                    <div class="col-sm-3">
+                        ایمیل
+                    </div>
+                    <div class="col-sm-9 mb-2">
+                        @foreach (var item in Model.PhoneBooks.Phones.Select(x => x.Email))
+                        {
+                            <span class="d-block">@item</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

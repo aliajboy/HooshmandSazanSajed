@@ -18,6 +18,7 @@
                     <th scope="col">شغل</th>
                     <th scope="col">شماره تماس</th>
                     <th scope="col">ایمیل</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +29,12 @@
                         <td>@item.Job</td>
                         <td>@item.PhoneNumber</td>
                         <td>@item.Email</td>
+                        <td>
+                            <form method="post" class="d-inline">
+                                <a asp-page="/Users/EditUserProfile" asp-route-id="@item.Id">ویرایش اطلاعات</a> |
+                                <a asp-page="/Users/EditUserPassword" asp-route-id="@item.Id">ویرایش پسورد</a>
+                            </form>
+                        </td>
                     </tr>
                 }
             </tbody>

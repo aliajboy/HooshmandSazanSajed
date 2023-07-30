@@ -1,0 +1,41 @@
+﻿@page
+@model Hooshmand.Pages.Tasks.DailyTasks.DetailsModel
+
+@{
+    ViewData["Title"] = "گزارش کار";
+}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">گزارش کار جدید</h5>
+                <dl class="row">
+                    <dt class="col-sm-2 mb-3">
+                        کاربر :
+                    </dt>
+                    <dd class="col-sm-5">
+                        @Html.DisplayFor(model => model.DailyTask.ApplicationUser.FullName)
+                    </dd>
+                    <dt class="col-sm-2 mb-3">
+                        تاریخ و زمان :
+                    </dt>
+                    <dd class="col-sm-3">
+                        @Html.DisplayFor(model => model.DailyTask.DateTime)
+                    </dd>
+                    <dt class="col-sm-2 mb-3">
+                        عنوان :
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.DailyTask.Title)
+                    </dd>
+                    <dt class="col-sm-2 mb-3">
+                        توضیحات :
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.DailyTask.Description)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

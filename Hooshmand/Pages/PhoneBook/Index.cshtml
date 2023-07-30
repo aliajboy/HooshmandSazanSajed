@@ -1,0 +1,74 @@
+﻿@page
+@model Hooshmand.Pages.PhoneBook.IndexModel
+
+@{
+    ViewData["Title"] = "لیست مخاطبین";
+}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">لیست مخاطبین</h5>
+
+        <a asp-page="/Phonebook/Create" class="btn btn-primary mb-3">افزودن شماره تماس جدید</a>
+
+        <form method="post" asp-page-handler="Search">
+            <div class="row mb-2">
+                <label class="col-sm-1 col-ali col-xxl-1 col-form-label"> جستجو :</label>
+                <div class="col-sm-3 col-xl-2">
+                    <input asp-for="Search" class="form-control text-center">
+                </div>
+                <div class="col-sm-2" style="width:10%;">
+                    <button type="submit" class="btn btn-success">مشاهده</button>
+                </div>
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneBooks[0].FullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneBooks[0].Company)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneBooks[0].JobPosition)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneBooks[0].Phones.FirstOrDefault().PhoneNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneBooks[0].InternalNumber)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PhoneBooks)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Company)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JobPosition)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phones.FirstOrDefault().PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InternalNumber)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.Id">ویرایش</a> |
+                            <a asp-page="./Details" asp-route-id="@item.Id">جزئیات</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.Id">حذف</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

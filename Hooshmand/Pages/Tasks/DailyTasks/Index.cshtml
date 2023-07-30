@@ -1,0 +1,80 @@
+﻿@page
+@model Hooshmand.Pages.Tasks.DailyTasks.IndexModel
+@{
+    ViewData["Title"] = "گزارش کار روزانه";
+    var users = UserManager.Users.ToList();
+}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title mb-1">گزارش کار روزانه</h5>
+
+        <a asp-page="./Create" class="btn btn-primary mb-1">گزارش کار جدید</a>
+
+        <form method="post">
+            <div class="row mb-2">
+                <label class="col-sm-1 col-ali col-xxl-1 col-form-label"> کاربر :</label>
+                <div class="col-sm-2">
+                    <select asp-for="Input.user.Id" class="form-select text-center">
+                        @foreach (var item in users)
+                        {
+                            <option value="@item.Id">@item.FullName</option>
+                        }
+                    </select>
+                </div>
+                <label for="inputDate" class="col-sm-1 col-xxl-1 col-form-label col-ali text-center">تاریخ :</label>
+                <div class="col-sm-3 col-xl-2">
+                    <input type="date" asp-for="Input.Date" type="Date" class="form-control col-6percent text-center">
+                </div>
+                <div class="col-sm-2" style="width:10%;">
+                    <button type="submit" class="btn btn-info">مشاهده</button>
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DailyTask[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DailyTask[0].Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DailyTask[0].DateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DailyTask[0].UserId)
+                    </th>
+                    <th style="width:220px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DailyTask)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.Id">ویرایش</a> |
+                            <a asp-page="./Details" asp-route-id="@item.Id">جزئیات</a> |
+                            <form method="post" class="d-inline">
+                                <button type="submit" asp-page="./index" class="btn btn-link text-decoration-none p-0 text-danger" asp-page-handler="Delete" asp-route-id="@item.Id">حذف</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

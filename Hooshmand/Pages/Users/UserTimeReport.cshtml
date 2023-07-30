@@ -1,7 +1,5 @@
 ﻿@page
-@model Hooshmand.Pages.Users.ReportModel
-@using Hooshmand.Models;
-@inject UserManager<ApplicationUser> UserManager
+@model Hooshmand.Pages.Users.UserTimeReport
 @{
     ViewData["Title"] = "گزارش ورود و خروج";
     var users = UserManager.Users.ToList();
@@ -10,29 +8,37 @@
     <div class="card-body">
         <h5 class="card-title">گزارش ورود و خروج</h5>
 
-        <a asp-page="Create" class="btn btn-primary mb-3">ثبت ورود و خروج</a>
+        <a asp-page="./AddUserTime" class="btn btn-primary mb-3">ثبت ورود و خروج</a>
+        <a asp-page="./AddVacation" class="btn btn-success mb-3">ثبت مرخصی</a>
+      
 
         <form method="post">
             <div class="row mb-2">
-                <label class="col-sm-1 col-xxl-1 col-form-label"> کاربر :</label>
+                <label class="col-sm-1 col-ali col-xxl-1 col-form-label"> کاربر :</label>
                 <div class="col-sm-2">
-                    <select asp-for="Input.user.Id" class="form-select text-center" aria-label="Default select example">
+                    <select asp-for="Input.user.Id" class="form-select text-center">
                         @foreach (var item in users)
                         {
                             <option value="@item.Id">@item.FullName</option>
                         }
                     </select>
                 </div>
-                <label for="inputDate" class="col-sm-1 col-xxl-1 col-form-label">از تاریخ :</label>
+                <label for="inputDate" class="col-sm-1 col-xxl-1 col-form-label col-ali">از تاریخ :</label>
                 <div class="col-sm-3 col-xl-2">
                     <input asp-for="Input.FromDate" type="Date" class="form-control text-center">
                 </div>
-                <label for="inputDate" class="col-sm-1 col-xxl-1 col-form-label">تا تاریخ :</label>
+                <label for="inputDate" class="col-sm-1 col-xxl-1 col-form-label col-ali">تا تاریخ :</label>
                 <div class="col-sm-3 col-xl-2">
                     <input asp-for="Input.ToDate" type="Date" class="form-control text-center">
                 </div>
-                <div class="col-sm-3 col-xl-2">
-                    <button asp-page-handler="GetReport" type="submit" class="btn btn-info">دریافت گزارش</button>
+                <div class="col-sm-2" style="width:10%;">
+                    <button asp-page-handler="GetReport" type="submit" class="btn btn-info">مشاهده گزارش</button>
+                </div>
+                <div class="col-sm-2" style="width:13%;">
+                    <button asp-page-handler="GetAllReports" type="submit" class="btn btn-info">دریافت گزارش کل پرسنل</button>
+                </div>
+                <div class="col-sm-1 d-flex align-items-center justify-content-center">
+                    <h5 class="label m-0">@Model.TotalTime</h5>
                 </div>
             </div>
         </form>
@@ -54,7 +60,7 @@
                 </tr>
             </thead>
             <tbody>
-                    @foreach (var item in Model.UserTimes)
+                @foreach (var item in Model.UserTimes)
                 {
                     <tr>
                         <td>
@@ -67,14 +73,16 @@
                             @item.ExitTime
                         </td>
                         <td>
-                            @item.Vacation
+                            @(item.Vacation ? "بله" : "خیر")
                         </td>
                         <td>
-                            <a asp-page="./Edit">ویرایش</a> | 
-                            <a asp-page="./Delete" class="link-danger">حذف</a>
+                            <a asp-page="EditUserTime" asp-route-id="@item.Id">ویرایش</a> |
+                            <form method="post" class="d-inline">
+                                <button asp-page-handler="Delete" asp-route-id="@item.Id" class="btn btn-link link-danger text-decoration-none p-0">حذف</button>
+                            </form>
                         </td>
                     </tr>
-                    }
+                }
             </tbody>
         </table>
     </div>

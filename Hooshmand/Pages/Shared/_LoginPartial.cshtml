@@ -21,13 +21,13 @@
 
                 <li class="nav-item pe-4">
                     <form method="post">
-                        <button asp-page="index" asp-page-handler="ExitSubmit" class="btn btn-danger">ثبت خروج</button>
+                        <button asp-page="/index" asp-page-handler="ExitSubmit" class="btn btn-danger">ثبت خروج</button>
                     </form>
                 </li>
 
                 <li class="nav-item pe-4">
                     <form method="post">
-                        <button asp-page-handler="EnterSubmit" class="btn btn-primary">ثبت ورود</button>
+                        <button asp-page="/index" asp-page-handler="EnterSubmit" class="btn btn-primary">ثبت ورود</button>
                     </form>
                 </li>
 
@@ -48,7 +48,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" asp-page="/userprofile">
+                            <a class="dropdown-item d-flex align-items-center" asp-page="/index">
                                 <i class="bi bi-person"></i>
                                 <span>پروفایل</span>
                             </a>
@@ -66,15 +66,14 @@
                             </form>
                         </li>
 
-                    </ul><!-- End Profile Dropdown Items -->
-                </li><!-- End Profile Nav -->
+                    </ul>
+                </li>
 
             </ul>
-        </nav><!-- End Icons Navigation -->
+        </nav>
 
     </header>
 
-    <!-- End Header -->
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
 
@@ -85,7 +84,7 @@
                     <i class="bi bi-grid"></i>
                     <span>داشبورد</span>
                 </a>
-            </li><!-- End Dashboard Nav -->
+            </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
@@ -98,7 +97,7 @@
                         </a>
                     </li>
                     <li>
-                        <a asp-page="/users/report">
+                        <a asp-page="/users/usertimereport">
                             <i class="bi bi-circle"></i><span>گزارش ورود و خروج</span>
                         </a>
                     </li>
@@ -108,8 +107,41 @@
                         </a>
                     </li>
                 </ul>
-            </li><!-- End Components Nav -->
-
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#work-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-card-list"></i><span>گزارش کار روزانه</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="work-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp asp-page="/Tasks/DailyTasks/Index">
+                            <i class="bi bi-circle"></i><span>لیست گزارشات</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-page="/Tasks/DailyTasks/Create">
+                            <i class="bi bi-circle"></i><span>افزودن گزارش کار جدید</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#phones-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-envelope"></i><span>دفترچه تلفن</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="phones-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp asp-page="/PhoneBook/Index">
+                            <i class="bi bi-circle"></i><span>لیست مخاطبین</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-page="/PhoneBook/Create">
+                            <i class="bi bi-circle"></i><span>افزودن شماره تماس جدید</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
 
     </aside>

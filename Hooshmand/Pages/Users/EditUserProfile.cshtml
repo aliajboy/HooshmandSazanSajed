@@ -1,0 +1,47 @@
+﻿@page
+@model Hooshmand.Pages.Users.EditUserProfileModel
+@{
+}
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body pt-3">
+                <h5 class="card-title">ویرایش اطلاعات کاربر</h5>
+                <form id="set-password-form" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <label asp-for="Inputs.FullName" class="form-label"></label>
+                    <div class="col-12 mb-3">
+                        <input asp-for="Inputs.FullName" class="form-control" />
+                        <span asp-validation-for="Inputs.FullName" class="text-danger"></span>
+                    </div>
+                    <label asp-for="Inputs.Job" class="form-label"></label>
+                    <div class="col-12 mb-3">
+                        <input asp-for="Inputs.Job" class="form-control" />
+                        <span asp-validation-for="Inputs.Job" class="text-danger"></span>
+                    </div>
+                    <label asp-for="Inputs.PhoneNumber" class="form-label"></label>
+                    <div class="col-12 mb-3">
+                        <input asp-for="Inputs.PhoneNumber" class="form-control" />
+                        <span asp-validation-for="Inputs.PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <label asp-for="Inputs.Adress" class="form-label"></label>
+                    <div class="col-12 mb-3">
+                        <input asp-for="Inputs.Adress" class="form-control" />
+                        <span asp-validation-for="Inputs.Adress" class="text-danger"></span>
+                    </div>
+                    <label asp-for="Inputs.Email" class="form-label"></label>
+                    <div class="col-12 mb-3">
+                        <input asp-for="Inputs.Email" class="form-control" />
+                        <span asp-validation-for="Inputs.Email" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="w-100 btn btn-lg btn-primary">ویرایش اطلاعات</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

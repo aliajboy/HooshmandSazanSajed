@@ -15,5 +15,6 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<PhoneBooks> PhoneBooks { get; set; }
     public DbSet<Phones> Phones { get; set; }
     public DbSet<Project> Projects { get; set; }
+    public DbSet<Customer> Customers { get; set; }
 
 }

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Customers\" />
     <Folder Include="wwwroot\lib\jquery\dist\" />
   </ItemGroup>
 

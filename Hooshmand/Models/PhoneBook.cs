@@ -16,11 +16,9 @@ public class PhoneBooks : GlobalProperties
     public string? UnitPosition { get; set; }
     [Display(Name = "توضیحات")]
     public string? Decription { get; set; }
-    public bool IsCustomer { get; set; } = false;
 
     // Relations
     public List<Phones> Phones { get; set; } = new List<Phones>();
-    public List<Project> Projects { get; set; } = new List<Project>();
 }
 
 public class Phones : GlobalProperties

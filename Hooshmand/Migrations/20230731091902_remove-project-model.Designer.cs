@@ -4,6 +4,7 @@ using Hooshmand.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hooshmand.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230731091902_remove-project-model")]
+    partial class removeprojectmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,24 +24,6 @@ namespace Hooshmand.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Hooshmand.Models.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("PhoneBooksId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PhoneBooksId");
-
-                    b.ToTable("Customers");
-                });
 
             modelBuilder.Entity("Hooshmand.Models.DailyTask", b =>
                 {
@@ -140,12 +125,15 @@ namespace Hooshmand.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PhoneBookId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PhoneBooksId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -153,7 +141,7 @@ namespace Hooshmand.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("PhoneBooksId");
 
                     b.ToTable("Projects");
                 });
@@ -412,17 +400,6 @@ namespace Hooshmand.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
-            modelBuilder.Entity("Hooshmand.Models.Customer", b =>
-                {
-                    b.HasOne("Hooshmand.Models.PhoneBooks", "PhoneBooks")
-                        .WithMany()
-                        .HasForeignKey("PhoneBooksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PhoneBooks");
-                });
-
             modelBuilder.Entity("Hooshmand.Models.DailyTask", b =>
                 {
                     b.HasOne("Hooshmand.Models.ApplicationUser", "ApplicationUser")
@@ -445,13 +422,13 @@ namespace Hooshmand.Migrations
 
             modelBuilder.Entity("Hooshmand.Models.Project", b =>
                 {
-                    b.HasOne("Hooshmand.Models.Customer", "Customer")
-                        .WithMany("Projects")
-                        .HasForeignKey("CustomerId")
+                    b.HasOne("Hooshmand.Models.PhoneBooks", "PhoneBooks")
+                        .WithMany()
+                        .HasForeignKey("PhoneBooksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.Navigation("PhoneBooks");
                 });
 
             modelBuilder.Entity("Hooshmand.Models.UserTime", b =>
@@ -514,11 +491,6 @@ namespace Hooshmand.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Hooshmand.Models.Customer", b =>
-                {
-                    b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("Hooshmand.Models.PhoneBooks", b =>

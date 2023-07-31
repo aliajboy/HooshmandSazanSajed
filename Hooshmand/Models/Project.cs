@@ -6,6 +6,6 @@ public class Project : GlobalProperties
     public string Description { get; set; }
 
     // Relations
-    public PhoneBooks PhoneBooks { get; set; }
-    public int PhoneBookId { get; set; }
+    public Customer Customer { get; set; }
+    public int CustomerId { get; set; }
 }

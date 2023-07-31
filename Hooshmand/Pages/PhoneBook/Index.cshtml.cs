@@ -30,10 +30,14 @@ namespace Hooshmand.Pages.PhoneBook
 
         public async Task OnPostSearch()
         {
-            if (_context.PhoneBooks != null)
+            if (_context.PhoneBooks != null && Search != null)
             {
                 PhoneBooks = await _context.PhoneBooks.Include(w => w.Phones).Where(x => x.FullName.Contains(Search) || x.Phones.Select(x => x.PhoneNumber).Contains(Search) ||
                 x.Company.Contains(Search) || x.Phones.Select(y => y.Email).Contains(Search)).ToListAsync();
+            }
+            else
+            {
+                await OnGetAsync();
             }
         }
 

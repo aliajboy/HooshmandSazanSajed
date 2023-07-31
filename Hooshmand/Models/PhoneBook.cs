@@ -4,33 +4,35 @@ namespace Hooshmand.Models;
 
 public class PhoneBooks : GlobalProperties
 {
-    [Display(Name ="نام")]
+    [Display(Name = "نام")]
     public string FullName { get; set; }
-    [Display(Name ="داخلی")]
+    [Display(Name = "داخلی")]
     public int? InternalNumber { get; set; }
-    [Display(Name ="شرکت")]
+    [Display(Name = "شرکت")]
     public string? Company { get; set; }
-    [Display(Name ="سمت شغلی")]
+    [Display(Name = "سمت شغلی")]
     public string? JobPosition { get; set; }
-    [Display(Name ="واحد شغلی")]
+    [Display(Name = "واحد شغلی")]
     public string? UnitPosition { get; set; }
-    [Display(Name ="توضیحات")]
+    [Display(Name = "توضیحات")]
     public string? Decription { get; set; }
+    public bool IsCustomer { get; set; } = false;
 
     // Relations
     public List<Phones> Phones { get; set; } = new List<Phones>();
+    public List<Project> Projects { get; set; } = new List<Project>();
 }
 
 public class Phones : GlobalProperties
 {
     [Phone]
-    [Display(Name ="شماره تماس")]
+    [Display(Name = "شماره تماس")]
     public string? PhoneNumber { get; set; }
     [Phone]
-    [Display(Name ="فکس")]
+    [Display(Name = "فکس")]
     public string? Fax { get; set; }
     [EmailAddress]
-    [Display(Name ="ایمیل")]
+    [Display(Name = "ایمیل")]
     public string? Email { get; set; }
 
     // Relations
